@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split Layout</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  
+  <!-- Use the older version (0.4.1) of html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.24/angular-material.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.24/angular-material.min.js"></script>
+</head>
+<body ng-controller="MainController">
+    <!-- Edit Modal -->
+<div class="modal" ng-class="{'active': showModal}">
+    <div class="modal-content">
+      <label>Background Image:</label>
+      <input type="file" onchange="angular.element(this).scope().updateFile('backgroundImage', this.files[0])">
+  
+      <label>Logo Image:</label>
+      <input type="file" onchange="angular.element(this).scope().updateFile('logo', this.files[0])">
+  
+      <label>Content Image:</label>
+      <input type="file" onchange="angular.element(this).scope().updateFile('image', this.files[0])">
+      
+      <label>Paragraph Content:</label>
+      <input type="text" ng-model="editData.paragraphContent">
+
+      <label>footerdata Content:</label>
+      <input type="text" ng-model="editData.footerdata">
+  
+      <button ng-click="saveChanges()">Save</button>
+      <button class="close" ng-click="closeEditModal()">Close</button>
+    </div>
+</div>
+  
+  <!-- Logo -->
+  <div class="logo">
+    <img ng-src="{{data.logo || 'rain.jpg'}}" alt="Logo" class="logo-img">
+    <h2 class="company-name"></h2>
+    <div class="tooltip-container" id="avoid">
+        <md-icon class="material-icons-outlined" ng-click="downloadImage()">download</md-icon>
+        <span class="tooltip-text">Download</span>
+    </div>
+    <div class="tooltip-container" id="avoidedit">
+        <md-icon class="edit-btn material-icons-outlined" ng-click="openEditModal()">edit</md-icon>
+        <span class="tooltip-text">Edit</span>
+    </div>
+    <span class="material-icons-outlined" ng-click="openHiPage()" id="avoidmenu">menu</span>
+
+  </div>
+  
+  <!-- Content -->
+  <div class="content" id="capture" ng-style="{'background-image': 'url(' + (data.backgroundImage || '') + ')'}">
+    <div class="left-content">
+      <h2>Content Section</h2>
+      <div class="right-image">
+        <p>{{data.paragraphContent || 'This is the content displayed on the left side. This is the content displayed on the left side.'}}</p>
+        <img ng-src="{{data.image || 'rain.jpg'}}" alt="Related" class="content-image">
+      </div>
+    </div>
+  </div>
+    
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy;{{data.footerdata || '2024 All rights reserved.'}} </p>
+  </footer>
+
+  <!-- AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script src="script.js"></script>
+  <script src="route.js"></script>
+</body>
+</html>
